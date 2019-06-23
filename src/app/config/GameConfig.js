@@ -6,7 +6,7 @@ export const phaserRendererTypes = {
     webgl: "WebGL"
 };
 
-export const phaserRendererList = [
+export const phaserRendererOptions = [
     phaserRendererTypes.auto,
     phaserRendererTypes.canvas,
     phaserRendererTypes.webgl
@@ -16,6 +16,10 @@ export const phaserRenderers = {
     [phaserRendererTypes.auto]: AUTO,
     [phaserRendererTypes.canvas]: CANVAS,
     [phaserRendererTypes.webgl]: WEBGL
+};
+
+export const gameActionTypes = {
+    updateGameConfig: "UPDATE_GAME_CONFIG"
 };
 
 // Fresh Phaser game config

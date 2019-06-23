@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Draggable from 'react-draggable';
-import { Paper, Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogActions, Button, Divider } from '@material-ui/core';
 import { mapEditorActionsToProps } from '../../utils/Mappings';
 import { editorActionTypes } from '../../config/EditorConfig';
 
@@ -28,24 +27,14 @@ export class EditorDialog extends React.Component {
     }
 
     render() {
-        function renderDialogHandle(props) {
-            return (
-                <Draggable cancel={'[class*="MuiDialogContent-root"]'}>
-                    <Paper {...props} />
-                </Draggable>
-            );
-        }
-
         return (
             <div>
-                <Dialog
+                <Dialog 
                     open={this.props.toggle}
                     onEnter={() => this.handleEnter()}
                     onClose={() => this.handleClose()}
-                    PaperComponent={renderDialogHandle}
-                    aria-labelledby="draggable-dialog-title"
                 >
-                    <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">{this.props.title}</DialogTitle>
+                    <DialogTitle>{this.props.title}</DialogTitle>
                     {this.renderDialogContent()}
                     <DialogActions>
                         <Button variant="outlined" color="secondary" onClick={() => this.handleCancel()}>{this.props.buttonText.cancel}</Button>

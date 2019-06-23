@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { EditorDialog } from './EditorDialog';
-import { mapEditorActionsToProps, mapStateToProps } from '../../utils/Mappings';
-import { DialogContent, DialogContentText, Grid, TextField } from '@material-ui/core';
+import { mapActionsToProps, mapStateToProps } from '../../utils/Mappings';
+import { DialogContent, DialogContentText, Grid, TextField, Select, FormControl, InputLabel, MenuItem , Input, Divider } from '@material-ui/core';
+import { gameActionTypes, phaserRendererOptions, phaserRenderers } from '../../config/GameConfig';
 
 class GameConfigDialog extends EditorDialog {
     constructor(props) {
@@ -11,38 +12,61 @@ class GameConfigDialog extends EditorDialog {
     }
 
     handleEnter() {
-        // Reset the editing state to match the current game config.
         this.setState(Object.assign({}, this.props.game.gameConfig));
     }
 
     handleChange(name, event) {
-        this.setState({ [name]: parseInt(event.target.value) });
+        this.setState({ [name]: event.target.value });
     }
 
     handleConfirm() {
-        // TODO - dispatch action to update game state's game config.
+        this.props[gameActionTypes.updateGameConfig](Object.assign({}, this.state));
         super.handleConfirm();
     }
 
     renderDialogContent() {
+        const renderRendererOptions = () => {
+            const options = phaserRendererOptions.map(option => {
+                return <MenuItem key={`PhaserRenderer-${option}`} value={phaserRenderers[option]}>{option}</MenuItem >
+            })
+            return options;
+        };
+
         return (
             <div>
                 <DialogContent>
-                    <Grid container spacing={3}>
-                        <Grid item>
-                            <TextField id="TextField-Width" label="Width" variant="outlined" margin="normal" type="number" 
+                    <DialogContentText>{this.props.body}</DialogContentText>
+                    <Divider />
+                    <Grid container spacing={1}>
+                        <Grid item xs={12}>
+                            <TextField fullWidth id="TextField-Title" label="Title" variant="outlined" margin="normal" type="tel"
+                                        value={this.state.title} onChange={(event) => this.handleChange('title', event)} />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField fullWidth id="TextField-Width" label="Width" variant="outlined" margin="normal" type="number"
                                        value={this.state.width} onChange={(event) => this.handleChange('width', event)} />
                         </Grid>
-                        <Grid item>
-                            <TextField id="TextField-Height" label="Height" variant="outlined" margin="normal" type="number" 
+                        <Grid item xs={6}>
+                            <TextField fullWidth id="TextField-Height" label="Height" variant="outlined" margin="normal" type="number"
                                        value={this.state.height} onChange={(event) => this.handleChange('height', event)} />
                         </Grid>
+                        <Grid item xs={12}>
+                            <FormControl>
+                                <InputLabel htmlFor="Phaser-Renderer-Options">Renderer</InputLabel>
+                                <Select
+                                    value={this.state.renderer}
+                                    onChange={(event) => this.handleChange('renderer', event)}
+                                    input={<Input id="Phaser-Renderer-Options"/>}
+                                >
+                                    {renderRendererOptions()}
+                                </Select>
+                            </FormControl>
+                        </Grid>
                     </Grid>
-                    <DialogContentText>{this.props.body}</DialogContentText>
                 </DialogContent>
             </div>
         );
     }
 }
 
-export default connect(mapStateToProps, mapEditorActionsToProps)(GameConfigDialog);
+export default connect(mapStateToProps, mapActionsToProps)(GameConfigDialog);

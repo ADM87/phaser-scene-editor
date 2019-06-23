@@ -18,7 +18,7 @@ export const dialogProps = {
     [dialogTypes.gameConfigDailog]: {
         dialogType: dialogTypes.gameConfigDailog,
         title: "Game Config",
-        body: "Changes will require the scene to reload. Make sure to save any changes to the scene before saving.",
+        body: "Changes will require the scene to reload. Make sure to save any changes to the scene before saving the game config.",
         buttonText: { confirm: "Save", cancel: "Cancel" }
     }
 };

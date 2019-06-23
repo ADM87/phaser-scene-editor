@@ -8,6 +8,7 @@ import { dialogProps, dialogTypes } from '../config/EditorConfig';
 class Editor extends React.Component {
     render() {
         const dialogToggles = this.props.editor.dialogToggles;
+
         return (
             <div>
                 <MenuBar />
