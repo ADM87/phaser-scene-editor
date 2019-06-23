@@ -2,12 +2,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { EditorDialog } from './EditorDialog';
 import { mapActionsToProps, mapStateToProps } from '../../utils/Mappings';
-import { DialogContent, DialogContentText, Grid, TextField, Select, FormControl, InputLabel, MenuItem , Input, Divider } from '@material-ui/core';
+import { 
+    DialogContent,
+    DialogContentText, 
+    Grid, 
+    TextField, 
+    Select, 
+    FormControl, 
+    InputLabel, 
+    MenuItem, 
+    Input, 
+    Divider 
+} from '@material-ui/core';
 import { gameActionTypes, phaserRendererOptions, phaserRenderers } from '../../config/GameConfig';
 
 class GameConfigDialog extends EditorDialog {
     constructor(props) {
         super(props);
+        // Store a local copy of the current game config.
+        // This will be used for editing and ignored if the dialog is cancelled.
         this.state = Object.assign({}, props.game.gameConfig);
     }
 
@@ -20,8 +33,9 @@ class GameConfigDialog extends EditorDialog {
     }
 
     handleConfirm() {
+        // Dispatch the update game config action and send a copy of the edits that were made.
         this.props[gameActionTypes.updateGameConfig](Object.assign({}, this.state));
-        super.handleConfirm();
+        this.handleClose();
     }
 
     renderDialogContent() {
