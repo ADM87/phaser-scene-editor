@@ -1,0 +1,1 @@
+Throw away project to get familiar React, React-Redux, Material-UI, etc. Might turn into something serious, might not.
