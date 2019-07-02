@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Dialog, DialogTitle, DialogActions, Button, Divider } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core';
 import { mapEditorActionsToProps } from '../../utils/Mappings';
 import { editorActionTypes } from '../../config/EditorConfig';
 

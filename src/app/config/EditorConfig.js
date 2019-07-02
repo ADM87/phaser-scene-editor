@@ -1,4 +1,19 @@
+import { phaserRenderers, phaserRendererTypes } from "./GameConfig";
+import { Scale } from 'phaser';
+
+export const editorVariables = {
+    menuDrawerWidth: 240
+};
+
+export const editorGameConfig = {
+    renderer: phaserRenderers[phaserRendererTypes.auto],
+    parent: "EditorGameContainer",
+    backgroundColor: "",
+    scale: { mode: Scale.RESIZE }
+};
+
 export const editorActionTypes = {
+    toggleMenuDrawer: "TOGGLE_MENU_DRAWER",
     toggleDialog: "TOGGLE_DIALOG"
 };
 
@@ -23,30 +38,33 @@ export const dialogProps = {
     }
 };
 
-export const menuBarItems = [
-    {
-        label: "File" ,
-        options: [
-            { 
-                label: "New Scene", 
-                actionType: editorActionTypes.toggleDialog, 
-                actionPayload: { [dialogTypes.newSceneDialog]: true } 
-            }
-        ]
-    },
-    {
-        label: "Edit",
-        options: [
-            { 
-                label: "Game Config", 
-                actionType: editorActionTypes.toggleDialog, 
-                actionPayload: { [dialogTypes.gameConfigDailog]: true } 
-            },
-            { 
-                label: "Settings", 
-                actionType: editorActionTypes.toggleDialog, 
-                actionPayload: { [dialogTypes.editSettingsDialog]: true } 
-            }
-        ]
-    }
+export const menuBarItemGroups = [
+    [
+        { 
+            label: "Game Config", 
+            icon: "gameConfig",
+            actionType: editorActionTypes.toggleDialog, 
+            actionPayload: { [dialogTypes.gameConfigDailog]: true }
+        }
+    ],
+    [
+        { 
+            label: "New Scene", 
+            icon: "newScene",
+            actionType: editorActionTypes.toggleDialog, 
+            actionPayload: { [dialogTypes.newSceneDialog]: true }
+        },
+        { 
+            label: "Open Scene", 
+            icon: "openScene",
+            actionType: editorActionTypes.toggleDialog, 
+            actionPayload: { [dialogTypes.newSceneDialog]: true }
+        },
+        { 
+            label: "Save Scene", 
+            icon: "saveScene",
+            actionType: editorActionTypes.toggleDialog, 
+            actionPayload: { [dialogTypes.newSceneDialog]: true }
+        }
+    ]
 ];

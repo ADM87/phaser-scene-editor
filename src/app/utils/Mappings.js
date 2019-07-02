@@ -4,11 +4,12 @@ import * as EditorActions from '../editor/EditorActions';
 import * as GameActions from '../game/GameActions';
 
 export function mapStateToProps(state) {
-    return Object.assign({}, state);
+    return { ...state };
 }
 
 export function mapEditorActionsToProps(dispatch) {
     return {
+        [editorActionTypes.toggleMenuDrawer]: payload => dispatch(EditorActions.toggleMenuDrawer(payload)),
         [editorActionTypes.toggleDialog]: payload => dispatch(EditorActions.toggleDialog(payload))
     };
 }
@@ -20,5 +21,5 @@ export function mapGameActionsToProps(dispatch) {
 }
 
 export function mapActionsToProps(dispatch) {
-    return Object.assign({}, mapEditorActionsToProps(dispatch), mapGameActionsToProps(dispatch));
+    return { ...mapEditorActionsToProps(dispatch), ...mapGameActionsToProps(dispatch) }
 }

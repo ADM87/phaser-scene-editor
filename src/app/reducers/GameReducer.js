@@ -1,15 +1,21 @@
 import { initialGameState } from '../config/StateConfig';
 import { gameActionTypes } from '../config/GameConfig';
 
+const updateGameConfig = (state, payload) => ({
+    ...state,
+    gameConfig: {
+        ...state.gameConfig,
+        ...payload
+    }
+})
+
 const initialState = initialGameState();
-export default function GameReducer(state = initialState, action) {
-    switch (action.type) {
+export default function GameReducer(state = initialState, { type, payload }) {
+    switch (type) {
         case gameActionTypes.updateGameConfig:
-            const test = Object.assign({}, state, { gameConfig: action.payload });
-            console.log(test);
-            return test;
+            return updateGameConfig(state, payload);
 
         default:
             return state;
     }
-}
+};

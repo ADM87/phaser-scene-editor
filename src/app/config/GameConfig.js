@@ -22,7 +22,7 @@ export const gameActionTypes = {
     updateGameConfig: "UPDATE_GAME_CONFIG"
 };
 
-// Fresh Phaser game config
+// Fresh Phaser game config for editing.
 export const newGameConfig = {
     renderer: phaserRenderers[phaserRendererTypes.auto],
     parent: "",

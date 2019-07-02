@@ -4,7 +4,6 @@ import { EditorDialog } from './EditorDialog';
 import { mapActionsToProps, mapStateToProps } from '../../utils/Mappings';
 import { 
     DialogContent,
-    DialogContentText, 
     Grid, 
     TextField, 
     Select, 
@@ -21,11 +20,11 @@ class GameConfigDialog extends EditorDialog {
         super(props);
         // Store a local copy of the current game config.
         // This will be used for editing and ignored if the dialog is cancelled.
-        this.state = Object.assign({}, props.game.gameConfig);
+        this.state = { ...props.game.gameConfig };
     }
 
     handleEnter() {
-        this.setState(Object.assign({}, this.props.game.gameConfig));
+        this.setState({ ...this.props.game.gameConfig });
     }
 
     handleChange(name, event) {
@@ -34,7 +33,7 @@ class GameConfigDialog extends EditorDialog {
 
     handleConfirm() {
         // Dispatch the update game config action and send a copy of the edits that were made.
-        this.props[gameActionTypes.updateGameConfig](Object.assign({}, this.state));
+        this.props[gameActionTypes.updateGameConfig]({ ...this.state });
         this.handleClose();
     }
 
@@ -45,11 +44,9 @@ class GameConfigDialog extends EditorDialog {
             })
             return options;
         };
-
         return (
             <div>
                 <DialogContent>
-                    <DialogContentText>{this.props.body}</DialogContentText>
                     <Divider />
                     <Grid container spacing={1}>
                         <Grid item xs={12}>
